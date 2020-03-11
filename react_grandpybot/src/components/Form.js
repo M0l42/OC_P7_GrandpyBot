@@ -25,7 +25,7 @@ class Form extends Component{
     render(){
       return(
           <form onSubmit={this.handleSubmit}>
-              <div>
+              <div className="chatForm">
                   <label>Your message :</label>
                   <input
                     type='text'

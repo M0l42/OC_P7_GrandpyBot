@@ -20,7 +20,7 @@ class ParserKiller:
                 if word not in data_dict:
                     keep_word.append(word)
 
-        return keep_word
+        return ' '.join(keep_word)
 
 
 test = ParserKiller("Est-ce que tu connais l'adresse d'OpenClassrooms")

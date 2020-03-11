@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import json
+from .chat_bot import ParserKiller
+from .api import GoogleAPI, MediaWikiAPI
 
 app = Flask(__name__)
 
@@ -18,13 +20,14 @@ def update():
     my_json = data_byte.decode('utf8').replace("'", '"')
     data = json.loads(my_json)
 
-    print(data)
-    message = data
-    new_message = message + " test"
+    sentence_parsed = ParserKiller(data).parse_sentence()
+    # place = GoogleAPI(sentence_parsed).find_location()
+    place = "7 Cité Paradis, 75010 Paris, France"
+    annectode = MediaWikiAPI(place.split(",")[0]).find_annecdote()
 
-    if new_message:
-        result = 'success'
-    else:
-        result = 'error'
+    first_message = "Bien sûr mon poussin ! La voici : " + place
+    second_message = "Sache que " + annectode
 
-    return jsonify({'result': result, 'message': new_message})
+    result = "success"
+
+    return jsonify({'result': result, 'first_message': first_message, "second_message": second_message})

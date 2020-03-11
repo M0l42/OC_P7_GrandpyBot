@@ -37,6 +37,16 @@
   }
 }
 
+.chatbox {
+  height: 500px;
+  width: 500px;
+  overflow: auto;
+}
+
+.chatForm {
+  width: 500px;
+}
+
 .grandpybot {
   color: red;
   text-align: left;

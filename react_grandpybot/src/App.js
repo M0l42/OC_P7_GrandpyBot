@@ -1,8 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from "./components/Form";
+
+
+const Messages = ({ messages }) => {
+  const messagesEndRef = useRef(null);
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+  useEffect(scrollToBottom, [messages]);
+
+  return (
+    <div className="messagesWrapper">
+      {messages.map(item => (
+        <div className="list-group">
+          <li className="list-group-item">
+            <div className={item.author} key={item.message}>{item.message}</div>
+          </li>
+        </div>
+      ))}
+      <div ref={messagesEndRef} />
+    </div>
+  );
+};
 
 
 class Main extends React.Component{
@@ -12,7 +33,7 @@ class Main extends React.Component{
       message: [
           {"author": "grandpybot",
            "message": "Welcome !"}]
-    }
+    };
   }
 
   getMessage =(user, userMessage)=> {
@@ -28,7 +49,8 @@ class Main extends React.Component{
   };
 
   writeMessage =(data)=>{
-    this.getMessage("grandpybot", data.message);
+    this.getMessage("grandpybot", data.first_message);
+    this.getMessage("grandpybot", data.second_message);
   };
 
   getAnswer =(message)=> {
@@ -44,21 +66,11 @@ class Main extends React.Component{
     return (
       <div className="App">
         <header className="App-header">
-          <div className="list-group">
-            {
-              this.state.message.map(item => {
-                return(
-                    <li className="list-group-item">
-                      <div className={item.author}>
-                        {item.message}
-                      </div>
-                    </li>
-                )
-              })
-            }
-            <Form getMessage={this.getMessage}
-                  getAnswer={this.getAnswer}/>
+          <div className="chatbox">
+            <Messages messages={this.state.message}/>
           </div>
+          <Form getMessage={this.getMessage}
+                getAnswer={this.getAnswer}/>
         </header>
       </div>
     );
