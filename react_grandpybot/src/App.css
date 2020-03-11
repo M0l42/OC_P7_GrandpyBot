@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.grandpybot {
+  color: red;
+  text-align: left;
+}
+
+.user {
+  color: blue;
+  text-align: right;
+}
