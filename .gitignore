@@ -1,6 +1,4 @@
 .idea/
 venv/
 grandpybot/__pycache__/
-grandpybot/static/react
-grandpybot/settings/production.py
 __pycache__/
