@@ -1,2 +1,2 @@
-web: gunicorn --chdir flask_backend app:app
+web: gunicorn gpbapp:app
 init: FLASK_APP=run.py
