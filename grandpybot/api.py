@@ -18,7 +18,9 @@ class GoogleAPI:
         r = requests.get(url, params=params)
         result = r.json()
         address = result['results'][0]['formatted_address']
-        return address
+        lat = result['results'][0]['geometry']['location']['lat']
+        lng = result['results'][0]['geometry']['location']['lng']
+        return address, lat, lng
 
 
 class MediaWikiAPI:
@@ -41,11 +43,13 @@ class MediaWikiAPI:
         pageid = self.find_page()
         payload = {"action": "query",
                    "pageids": pageid,
-                   "prop": "extracts",
+                   "prop": "extracts|info",
                    "exintro": True,
                    "explaintext": True,
+                   "inprop": "url",
                    "format": "json"}
         r = requests.get(url, params=payload)
         data = r.json()
         annecdote = data["query"]["pages"][str(pageid)]["extract"]
-        return annecdote
+        url = data["query"]["pages"][str(pageid)]["fullurl"]
+        return annecdote, url

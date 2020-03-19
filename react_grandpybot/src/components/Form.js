@@ -26,8 +26,8 @@ class Form extends Component{
       return(
           <form onSubmit={this.handleSubmit}>
               <div className="chatForm">
-                  <label>Your message :</label>
                   <input
+                    className="form-control input-lg"
                     type='text'
                     value={this.state.message}
                     onChange={this.handleMessageChange}>

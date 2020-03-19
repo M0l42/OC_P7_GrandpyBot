@@ -2,29 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from "./components/Form";
+import AutoscrolledList from "./components/AutoscrolledList";
+import Test from "./components/Grandpy"
 
-
-const Messages = ({ messages }) => {
-  const messagesEndRef = useRef(null);
-  const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-  useEffect(scrollToBottom, [messages]);
-
-  return (
-    <div className="messagesWrapper">
-      {messages.map(item => (
-        <div className="list-group">
-          <li className="list-group-item">
-            <div className={item.author} key={item.message}>{item.message}</div>
-          </li>
-        </div>
-      ))}
-      <div ref={messagesEndRef} />
-    </div>
-  );
-};
-
+function chooseImage() {
+    let min = 1;
+    let max = 4;
+    return Math.floor(min + (Math.random() * (max-min)));
+}
 
 class Main extends React.Component{
   constructor(){
@@ -32,7 +17,10 @@ class Main extends React.Component{
     this.state = {
       message: [
           {"author": "grandpybot",
-           "message": "Welcome !"}]
+           "message": "Welcome !"}],
+      data : null,
+      img: chooseImage(),
+      img_location: "other"
     };
   }
 
@@ -48,9 +36,27 @@ class Main extends React.Component{
     });
   };
 
+  writeMap =(data)=> {
+    const newMessage = {
+      "author": "grandpybot",
+      "img": data.url,
+      "message": "",
+    };
+
+    this.getMessage("grandpybot", this.state.data.first_message);
+    this.setState({
+      message: [...this.state.message, newMessage]
+    });
+    this.getMessage("grandpybot", this.state.data.second_message);
+  };
+
   writeMessage =(data)=>{
-    this.getMessage("grandpybot", data.first_message);
-    this.getMessage("grandpybot", data.second_message);
+    this.state.data = data;
+    // this.getMessage("grandpybot", data.first_message);
+    this.getMap(data.adress, data.location);
+    // this.getMessage("grandpybot", data.second_message);
+    this.state.img = data.img + 1;
+    this.state.img_location = 'anecdote'
   };
 
   getAnswer =(message)=> {
@@ -62,15 +68,34 @@ class Main extends React.Component{
         .catch();
   };
 
+  getMap =(adress, location)=> {
+        this.state.success = false;
+        const API_KEY = "AIzaSyBsl71VK0vPiuXN-OO1skM9lvYXCGI6pRI";
+        let mapsURL = "https://maps.googleapis.com/maps/api/staticmap?zoom=16&size=300x300&center=" + adress;
+        let marker = "&markers=color:blue7Clabel:S%7C" + location.lat + ',' + location.lng;
+        fetch(mapsURL + marker + "&key=" + API_KEY)
+            .then(response => response)
+            .then(this.writeMap)
+            .catch();
+    };
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <div className="chatbox">
-            <Messages messages={this.state.message}/>
+        <header className="App-header d-flex">
+          <div className="card bg-secondary p-3 m-3">
+            <AutoscrolledList
+              items={this.state.message}
+              onScrolled={e => console.log("the list was scrolled!")}
+              onScrolledTop={e => alert("scrolled to top!")}
+            />
+            <Form getMessage={this.getMessage}
+                  getAnswer={this.getAnswer}/>
           </div>
-          <Form getMessage={this.getMessage}
-                getAnswer={this.getAnswer}/>
+          <div className="m-3">
+            <Test img={this.state.img}
+                  location={this.state.img_location}/>
+          </div>
         </header>
       </div>
     );

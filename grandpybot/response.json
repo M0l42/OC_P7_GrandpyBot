@@ -1,0 +1,27 @@
+{
+  "success": [
+    "Bien sûr mon poussin ! La voici : ",
+    "Dans mes souvenirs l'adresse est ; ",
+    "Bien évidement mon lou ! C'est celle-ci ; ",
+    "La dernière fois que je m'y suis rendu c'était à "
+  ],
+  "failure": [
+    "NOOOON ! Tout sauf là ! Non je te fais marcher, je ne comprends pas ce que tu veux dire, c'est tout.",
+    "Je ne sais pas ce qu'il m'arrive, mais j'ai du mal à comprendre. J'ai peut-etre besoin d'une sieste",
+    "Oh pardon, je m'étais endormi, peut tu répéter?",
+    "Je crois que je suis un peu malade car je ne sais pas où est cet endroit.",
+    "Je ne suis plus très jeune tu sais, j'ai parfois du mal à comprendre votre language !",
+    "Je n'arrive pas à voir, es-tu sur de l'endroit?",
+    "Je crois que ma mémoire me fait défaut, je ne trouve pas ce que tu cherche...",
+    "Je ne connais pas, mais vérifie le nom de ce que tu cherche, peut-etre je connais sous un autre nom."
+  ],
+  "anecdote": [
+    "Je t'ai déjà raconté la fois où j'ai voulu sonder le canal où je m'appretais à pecher? ",
+    "Une fois à la librarie j'ai rencontré le président. ",
+    "Comment je m'étais retrouver plein de peinture déjà? Ah oui c'était quand j'ai voulu peindre le plafond ! ",
+    "La première fois que j'ai rencontra ta grand-mère, elle me poursuivait avec une fourche. ",
+    "Une fois j'ai offert de la laitue à ta grand-mère pensant que c'était des fleurs. ",
+    "Un jour je te raconterais comment j'ai déjà été coincé entre deux fenetre... ",
+    "Tu savais que j'ai déjà fait TOP 1 sur Fortnite? "
+  ]
+}

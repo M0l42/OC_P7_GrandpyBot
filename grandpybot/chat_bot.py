@@ -1,8 +1,10 @@
 import json
 import re
 import os
+import random
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
+
 
 class ParserKiller:
     def __init__(self, sentence):
@@ -23,5 +25,11 @@ class ParserKiller:
         return ' '.join(keep_word)
 
 
-test = ParserKiller("Est-ce que tu connais l'adresse d'OpenClassrooms")
-print(test.parse_sentence())
+def select_response(status):
+    with open(os.path.join(dir_path, 'response.json'), encoding='utf-8') as json_file:
+        data = json.load(json_file)
+        choosen_status = data[status]
+        random_choice = random.randrange(len(choosen_status))
+        response = choosen_status[random_choice]
+
+    return response, random_choice
