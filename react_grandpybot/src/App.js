@@ -56,10 +56,11 @@ class Main extends React.Component{
       this.state.img = data.img + 1;
       this.state.img_location = 'anecdote'
     }
-    else{
+    else if(data.status == 'ZERO_RESULTS'){
       this.getMessage("grandpybot", data.error_message);
-      this.state.img = data.error_img + 1;
-      this.state.img_location = 'failure'
+      this.setState(()=> {
+        return {img: data.error_img + 1, img_location: 'failure'}
+      });
     }
   };
 

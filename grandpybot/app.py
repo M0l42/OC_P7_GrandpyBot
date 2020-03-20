@@ -41,6 +41,7 @@ def update():
         second_response, response['img'] = select_response("anecdote")
         response['second_message'] = second_response + anecdote.annecdote
     else:
+        print(place.status)
         response['error_message'], response['error_img'] = select_response('failure')
 
     return jsonify(response)
