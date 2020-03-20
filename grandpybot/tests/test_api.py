@@ -16,7 +16,8 @@ class FakeGoogle:
                             "lng": 2.3504873,
                         }
                     }
-                }]
+                }],
+            'status': 'OK'
         }
 
 
@@ -47,11 +48,12 @@ class TestGoogleAPI:
 
         monkeypatch.setattr("requests.get", FakeGoogle)
 
-        address, lat, lng = place.find_location()
+        place.find_location()
 
-        assert address == '7 Cité Paradis, 75010 Paris, France'
-        assert lat == 48.8748465
-        assert lng == 2.3504873
+        assert place.status == 'OK'
+        assert place.address == '7 Cité Paradis, 75010 Paris, France'
+        assert place.lat == 48.8748465
+        assert place.lng == 2.3504873
 
 
 class TestMediaWikiAPI:
@@ -59,10 +61,12 @@ class TestMediaWikiAPI:
 
     def test_find_page(self, monkeypatch):
         monkeypatch.setattr("requests.get", FakeMediaWiki)
+        self.place.find_page()
         assert self.place.find_page() == 5653202
 
     def test_find_annecdote(self, monkeypatch):
         monkeypatch.setattr("requests.get", FakeMediaWiki)
-        annectode, url = self.place.find_annecdote()
-        assert annectode == "La cité Paradis est une voie publique située dans le 10e arrondissement de Paris."
-        assert url == "https://fr.wikipedia.org/wiki/Cit%C3%A9_Paradis"
+        self.place.page = 5653202
+        self.place.find_annecdote()
+        assert self.place.annectode == "La cité Paradis est une voie publique située dans le 10e arrondissement de Paris."
+        assert self.place.url == "https://fr.wikipedia.org/wiki/Cit%C3%A9_Paradis"

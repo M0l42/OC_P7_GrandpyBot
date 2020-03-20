@@ -20,19 +20,27 @@ def update():
     my_json = data_byte.decode('utf8')
 
     data = json.loads(my_json)
+    response = dict()
 
     sentence_parsed = ParserKiller(data).parse_sentence()
-    place, lat, lng = GoogleAPI(sentence_parsed).find_location()
-    anecdote, url = MediaWikiAPI(place.split(",")[0]).find_annecdote()
+    place = GoogleAPI(sentence_parsed)
+    place.find_location()
+    response['status'] = place.status
+    if place.status == 'OK':
+        response['address'] = place.address
+        response['location'] = dict()
+        response['location']['lat'] = place.lat
+        response['location']['lng'] = place.lng
 
-    first_response, j = select_response("success")
-    first_message = first_response + place
-    second_response, anecdote_choice = select_response("anecdote")
-    second_message = second_response + anecdote
+        anecdote = MediaWikiAPI(place.address.split(",")[0])
+        anecdote.find_annecdote()
+        response['url'] = anecdote.url
 
-    result = "success"
+        first_response, _ = select_response("success")
+        response['first_message'] = first_response + place.address
+        second_response, response['img'] = select_response("anecdote")
+        response['second_message'] = second_response + anecdote.annecdote
+    else:
+        response['error_message'], response['error_img'] = select_response('failure')
 
-    return jsonify({'result': result, 'first_message': first_message, "second_message": second_message, "url": url,
-                    "img": anecdote_choice, "adress": place, 'location': {
-                                                             'lat': lat,
-                                                             'lng': lng}})
+    return jsonify(response)

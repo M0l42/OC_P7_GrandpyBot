@@ -25,7 +25,6 @@ class Main extends React.Component{
   }
 
   getMessage =(user, userMessage)=> {
-    const {message} = this.state;
     const newMessage = {
       "author": user,
       "message": userMessage,
@@ -52,11 +51,16 @@ class Main extends React.Component{
 
   writeMessage =(data)=>{
     this.state.data = data;
-    // this.getMessage("grandpybot", data.first_message);
-    this.getMap(data.adress, data.location);
-    // this.getMessage("grandpybot", data.second_message);
-    this.state.img = data.img + 1;
-    this.state.img_location = 'anecdote'
+    if(data.status =='OK'){
+      this.getMap(data.adress, data.location);
+      this.state.img = data.img + 1;
+      this.state.img_location = 'anecdote'
+    }
+    else{
+      this.getMessage("grandpybot", data.error_message);
+      this.state.img = data.error_img + 1;
+      this.state.img_location = 'failure'
+    }
   };
 
   getAnswer =(message)=> {
