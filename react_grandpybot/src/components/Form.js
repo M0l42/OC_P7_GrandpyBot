@@ -25,13 +25,14 @@ class Form extends Component{
     render(){
       return(
           <form onSubmit={this.handleSubmit}>
-              <div className="w-auto">
+              <div className="w-auto d-flex">
                   <input
                     className="form-control input-lg"
                     type='text'
                     value={this.state.message}
                     onChange={this.handleMessageChange}>
                   </input>
+                  <button type="submit"><img src={process.env.PUBLIC_URL + '/send.png'} /></button>
               </div>
           </form>
       )

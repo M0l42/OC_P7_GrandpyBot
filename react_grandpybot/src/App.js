@@ -15,6 +15,7 @@ class Main extends React.Component{
   constructor(){
     super();
     this.state = {
+      status: "OK",
       message: [
           {"author": "grandpybot",
            "message": "Welcome !"}],
@@ -52,11 +53,13 @@ class Main extends React.Component{
   writeMessage =(data)=>{
     this.state.data = data;
     if(data.status =='OK'){
+      this.state.status="OK";
       this.getMap(data.adress, data.location);
       this.state.img = data.img + 1;
       this.state.img_location = 'anecdote'
     }
     else if(data.status == 'ZERO_RESULTS'){
+      this.state.status = data.status;
       this.getMessage("grandpybot", data.error_message);
       this.setState(()=> {
         return {img: data.error_img + 1, img_location: 'failure'}
@@ -65,6 +68,9 @@ class Main extends React.Component{
   };
 
   getAnswer =(message)=> {
+    this.setState(()=>{
+      return {status: "Loading"}
+    });
     fetch("/update/", {
       method: 'POST',
       body: JSON.stringify(message)
@@ -86,11 +92,11 @@ class Main extends React.Component{
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header d-flex">
+      <div className="App-header d-flex w-100">
           <div className="card bg-secondary p-3 m-5">
             <AutoscrolledList
               items={this.state.message}
+              status={this.state.status}
               onScrolled={e => console.log("the list was scrolled!")}
               onScrolledTop={e => alert("scrolled to top!")}
             />
@@ -101,7 +107,6 @@ class Main extends React.Component{
             <Test img={this.state.img}
                   location={this.state.img_location}/>
           </div>
-        </header>
       </div>
     );
   }

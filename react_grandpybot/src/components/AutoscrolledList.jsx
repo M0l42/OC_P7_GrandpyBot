@@ -1,15 +1,15 @@
 import React from "react";
 import autoscroll from "autoscroll-react";
-import {isMobile} from 'react-device-detect'
+import Loading from "./Loading"
 
 function UserClass(props) {
     const author = props.author;
 
     if (author == "grandpybot"){
-        return "list-group-item list-group-item-dark grandpybot mr-5 my-3"
+        return "list-group-item list-group-item-dark grandpybot mr-5 my-3 w-75"
     }
     else{
-        return "list-group-item active user ml-5 my-3"
+        return "list-group-item active user ml-5 my-3 w-75"
     }
 }
 
@@ -26,13 +26,14 @@ function Message(props) {
 class List extends React.Component {
   render() {
     const { items } = this.props;
-    console.log(this.props);
+    const { status } = this.props;
 
     return (
-        <div className="chatbox mt-2">
+        <div className="chatbox my-2">
               <ul className="list-group" {...this.props}>
                 {items.map(item => <li className={UserClass({author:item.author})}>{Message(item)}</li>)}
               </ul>
+            <Loading status = { status }/>
         </div>
     );
   }
