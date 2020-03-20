@@ -2,6 +2,15 @@ import React from "react";
 import autoscroll from "autoscroll-react";
 import {isMobile} from 'react-device-detect'
 
+function mobile() {
+    if(isMobile){
+        return "w-auto";
+    }
+    else{
+        return "chatbox";
+    }
+}
+
 function UserClass(props) {
     const author = props.author;
 
@@ -29,7 +38,7 @@ class List extends React.Component {
     console.log(this.props);
 
     return (
-        <div className="chatbox">
+        <div className={mobile()}>
           <ul className="list-group" {...this.props}>
             {items.map(item => <li className={UserClass({author:item.author})}>{Message(item)}</li>)}
           </ul>
