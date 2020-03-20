@@ -69,7 +69,7 @@ class Main extends React.Component{
 
   getAnswer =(message)=> {
     this.setState(()=>{
-      return {status: "Loading"}
+      return {status: "Loading", img: 1, img_location: 'loading'}
     });
     fetch("/update/", {
       method: 'POST',
