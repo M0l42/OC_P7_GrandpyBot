@@ -38,10 +38,12 @@ class List extends React.Component {
     console.log(this.props);
 
     return (
-        <div className={mobile()}>
-          <ul className="list-group" {...this.props}>
-            {items.map(item => <li className={UserClass({author:item.author})}>{Message(item)}</li>)}
-          </ul>
+        <div className="chatbox">
+            <div className="w-auto">
+              <ul className="list-group" {...this.props}>
+                {items.map(item => <li className={UserClass({author:item.author})}>{Message(item)}</li>)}
+              </ul>
+            </div>
         </div>
     );
   }
