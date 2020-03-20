@@ -88,7 +88,7 @@ class Main extends React.Component{
     return (
       <div className="App">
         <header className="App-header d-flex">
-          <div className="card bg-secondary p-3 m-3">
+          <div className="card bg-secondary p-3 m-5">
             <AutoscrolledList
               items={this.state.message}
               onScrolled={e => console.log("the list was scrolled!")}
