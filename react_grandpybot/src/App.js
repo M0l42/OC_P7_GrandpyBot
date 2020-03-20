@@ -92,7 +92,7 @@ class Main extends React.Component{
 
   render() {
     return (
-      <div className="App-header d-flex w-100">
+      <div className="App-header d-flex">
           <div className="card bg-secondary p-3 m-5">
             <AutoscrolledList
               items={this.state.message}
