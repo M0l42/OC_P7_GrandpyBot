@@ -4,7 +4,7 @@ import {isMobile} from 'react-device-detect'
 
 function mobile() {
     if(isMobile){
-        return "w-auto";
+        return "w-100";
     }
     else{
         return "chatbox";
