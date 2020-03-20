@@ -28,15 +28,6 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .chatbox {
   height: 500px;
   width: 500px;
@@ -53,4 +44,15 @@
 
 .user {
   text-align: right;
+}
+
+@media all and (max-width: 1200px)
+{
+  .App-header {
+    flex-direction : column;
+  }
+
+  .chatbox {
+    width: 400px;
+  }
 }

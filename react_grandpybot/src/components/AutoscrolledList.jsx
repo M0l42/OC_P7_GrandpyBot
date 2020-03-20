@@ -1,6 +1,6 @@
 import React from "react";
 import autoscroll from "autoscroll-react";
-
+import {isMobile} from 'react-device-detect'
 
 function UserClass(props) {
     const author = props.author;

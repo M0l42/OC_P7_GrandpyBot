@@ -25,7 +25,7 @@ class Form extends Component{
     render(){
       return(
           <form onSubmit={this.handleSubmit}>
-              <div className="chatForm">
+              <div className="w-auto">
                   <input
                     className="form-control input-lg"
                     type='text'
