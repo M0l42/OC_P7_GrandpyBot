@@ -39,11 +39,9 @@ class List extends React.Component {
 
     return (
         <div className="chatbox">
-            <div className="w-75">
               <ul className="list-group" {...this.props}>
                 {items.map(item => <li className={UserClass({author:item.author})}>{Message(item)}</li>)}
               </ul>
-            </div>
         </div>
     );
   }
