@@ -1,4 +1,4 @@
-from .settings.production import GOOGLE_API_KEY
+from .settings import GOOGLE_API_KEY
 import requests
 
 
