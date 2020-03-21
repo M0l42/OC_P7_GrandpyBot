@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import json
-from .chat_bot import ParserKiller, select_response
+from .chat_bot import ParserKiller, select_response, compact_answer
 from .api import GoogleAPI, MediaWikiAPI
 
 app = Flask(__name__)
@@ -39,7 +39,7 @@ def update():
         first_response, _ = select_response("success")
         response['first_message'] = first_response + place.address
         second_response, response['img'] = select_response("anecdote")
-        response['second_message'] = second_response + anecdote.annecdote
+        response['second_message'] = second_response + compact_answer(anecdote.annecdote)
     else:
         print(place.status)
         response['error_message'], response['error_img'] = select_response('failure')

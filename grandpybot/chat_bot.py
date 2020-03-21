@@ -33,3 +33,8 @@ def select_response(status):
         response = choosen_status[random_choice]
 
     return response, random_choice
+
+
+def compact_answer(sentence):
+    new_sentences = re.split(r'(?<=[^A-Z].[.?]) +(?=[A-Z])', sentence)
+    return ' '.join(new_sentences[:2])

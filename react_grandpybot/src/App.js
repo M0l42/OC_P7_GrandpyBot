@@ -18,7 +18,7 @@ class Main extends React.Component{
       status: "OK",
       message: [
           {"author": "grandpybot",
-           "message": "Welcome !"}],
+           "message": "Salut mon chou, en quoi puis-je t'aider?"}],
       data : null,
       img: chooseImage(),
       img_location: "other"
@@ -34,10 +34,11 @@ class Main extends React.Component{
     window.addEventListener("resize", this.handleResize());
   }
 
-  getMessage =(user, userMessage)=> {
+  getMessage =(user, userMessage, url)=> {
     const newMessage = {
       "author": user,
       "message": userMessage,
+      "url": url,
     };
 
     this.setState({
@@ -52,11 +53,11 @@ class Main extends React.Component{
       "message": "",
     };
 
-    this.getMessage("grandpybot", this.state.data.first_message);
+    this.getMessage("grandpybot", this.state.data.first_message, '');
     this.setState({
       message: [...this.state.message, newMessage]
     });
-    this.getMessage("grandpybot", this.state.data.second_message);
+    this.getMessage("grandpybot", this.state.data.second_message, this.state.data.url);
   };
 
   writeMessage =(data)=>{

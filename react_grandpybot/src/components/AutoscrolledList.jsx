@@ -18,6 +18,9 @@ function Message(props) {
         return (<img src={props.img} className="map"/>);
     }
     else{
+        if(props.url){
+            return (<p>{props.message} <a href={props.url}>[En savoir plus sur Wikipedia]</a></p> )
+        }
         return props.message
     }
 
