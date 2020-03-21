@@ -1,4 +1,5 @@
 .idea/
 venv/
 grandpybot/__pycache__/
+grandpubot/settings/production.py
 __pycache__/
