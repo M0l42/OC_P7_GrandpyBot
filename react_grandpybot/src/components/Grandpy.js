@@ -3,6 +3,7 @@ import Img from 'react-image'
 import {isMobile} from 'react-device-detect'
 
 class Grandpy extends Component {
+    // Show the image links to the answer given next to the chat
     render() {
         const img = this.props.img;
         const location = this.props.location;

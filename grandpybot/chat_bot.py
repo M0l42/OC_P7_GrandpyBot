@@ -11,6 +11,11 @@ class ParserKiller:
         self.sentence = sentence
 
     def parse_sentence(self):
+        """
+        Keep only the letters and delete all common word
+        :return:
+             All the work we keep
+        """
         self.sentence = re.sub(r'[^\w\s]', ' ', self.sentence)
         self.sentence = self.sentence.lower()
         list_of_word = self.sentence.split(" ")
@@ -26,15 +31,28 @@ class ParserKiller:
 
 
 def select_response(status):
+    """
+    Get randomly an answer in repsponse.json depending on the status
+
+    :param status:
+    :return:
+        response, random_choice
+    """
     with open(os.path.join(dir_path, 'response.json'), encoding='utf-8') as json_file:
         data = json.load(json_file)
-        choosen_status = data[status]
-        random_choice = random.randrange(len(choosen_status))
-        response = choosen_status[random_choice]
+        chosen_status = data[status]
+        random_choice = random.randrange(len(chosen_status))
+        response = chosen_status[random_choice]
 
     return response, random_choice
 
 
-def compact_answer(sentence):
-    new_sentences = re.split(r'(?<=[^A-Z].[.?]) +(?=[A-Z])', sentence)
-    return ' '.join(new_sentences[:2])
+def compact_answer(text):
+    """
+    Using a regular expression to get the first two sentences of a text
+    :param text:
+    :return:
+        The first two sentences
+    """
+    sentences = re.split(r'(?<=[^A-Z].[.?]) +(?=[A-Z])', text)
+    return ' '.join(sentences[:2])

@@ -16,7 +16,8 @@ class Form extends Component{
     };
 
     handleSubmit =(event)=>{
-        this.props.getMessage("user", this.state.message);
+        // Add the submitted message to the list of messages
+        this.props.writeMessage("user", this.state.message);
         this.props.getAnswer(this.state.message);
         this.state.message='';
         event.preventDefault()

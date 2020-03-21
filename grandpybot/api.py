@@ -17,6 +17,10 @@ class GoogleAPI:
         self.lng = 0
 
     def find_location(self):
+        """
+        Find a location to a given place
+        Get the status, the adresse and the location
+        """
         url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?'
         params = {'query': self.place, 'key': self.api_key}
         r = requests.get(url, params=params)
@@ -32,10 +36,13 @@ class MediaWikiAPI:
     def __init__(self, place):
         self.place = place
         self.page = ''
-        self.annecdote = ''
+        self.anecdote = ''
         self.url = ''
 
     def find_page(self):
+        """
+        Find the Wikipedia's page of the adresse
+        """
         url = 'https://fr.wikipedia.org/w/api.php'
         payload = {"action": "query",
                    "list": "search",
@@ -46,6 +53,10 @@ class MediaWikiAPI:
         self.page = data["query"]["search"][0]["pageid"]
 
     def find_annecdote(self):
+        """
+        Get the introduction of the page
+        And get the Url of that page
+        """
         url = 'https://fr.wikipedia.org/w/api.php'
         if self.page == '':
             self.find_page()
@@ -58,5 +69,5 @@ class MediaWikiAPI:
                    "format": "json"}
         r = requests.get(url, params=payload)
         data = r.json()
-        self.annecdote = data["query"]["pages"][str(self.page)]["extract"]
+        self.anecdote = data["query"]["pages"][str(self.page)]["extract"]
         self.url = data["query"]["pages"][str(self.page)]["fullurl"]

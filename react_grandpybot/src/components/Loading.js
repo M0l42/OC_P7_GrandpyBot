@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 class Loading extends Component {
+    // Show a bootstrap loading animations when Grandpy is 'thinking'
     render() {
         const status = this.props.status;
 
@@ -11,6 +12,7 @@ class Loading extends Component {
                 </div>
             );
         }
+        // Can't return nothing, and html comments seems not ok
         return (<div></div>)
   }
 }

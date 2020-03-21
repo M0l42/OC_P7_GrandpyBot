@@ -27,6 +27,7 @@ def update():
     place.find_location()
     response['status'] = place.status
     if place.status == 'OK':
+        # only send those data if Google Maps got a result
         response['address'] = place.address
         response['location'] = dict()
         response['location']['lat'] = place.lat
@@ -36,12 +37,13 @@ def update():
         anecdote.find_annecdote()
         response['url'] = anecdote.url
 
+        # Write the message we'll show with the random sentence of Grandpy
         first_response, _ = select_response("success")
         response['first_message'] = first_response + place.address
         second_response, response['img'] = select_response("anecdote")
-        response['second_message'] = second_response + compact_answer(anecdote.annecdote)
+        response['second_message'] = second_response + compact_answer(anecdote.anecdote)
     else:
-        print(place.status)
+        # Send error message if Google Maps didn't got a result
         response['error_message'], response['error_img'] = select_response('failure')
 
     return jsonify(response)

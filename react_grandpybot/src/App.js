@@ -5,9 +5,7 @@ import Form from "./components/Form";
 import AutoscrolledList from "./components/AutoscrolledList";
 import Grandpy from "./components/Grandpy"
 
-function chooseImage() {
-    let min = 1;
-    let max = 4;
+function chooseImage(min, max) {
     return Math.floor(min + (Math.random() * (max-min)));
 }
 
@@ -20,21 +18,13 @@ class Main extends React.Component{
           {"author": "grandpybot",
            "message": "Salut mon chou, en quoi puis-je t'aider?"}],
       data : null,
-      img: chooseImage(),
+      img: chooseImage(1,4),
       img_location: "other"
     };
   }
 
-  handleResize() {
-
-  }
-
-  componentDidMount() {
-    this.handleResize();
-    window.addEventListener("resize", this.handleResize());
-  }
-
-  getMessage =(user, userMessage, url)=> {
+  writeMessage =(user, userMessage, url)=> {
+    // Add the new message to the List of messages
     const newMessage = {
       "author": user,
       "message": userMessage,
@@ -47,38 +37,41 @@ class Main extends React.Component{
   };
 
   writeMap =(data)=> {
+    // Add the Map to the list of messages between the address and the anecdote
     const newMessage = {
       "author": "grandpybot",
       "img": data.url,
       "message": "",
     };
 
-    this.getMessage("grandpybot", this.state.data.first_message, '');
+    this.writeMessage("grandpybot", this.state.data.first_message, '');
     this.setState({
       message: [...this.state.message, newMessage]
     });
-    this.getMessage("grandpybot", this.state.data.second_message, this.state.data.url);
+    this.writeMessage("grandpybot", this.state.data.second_message, this.state.data.url);
   };
 
-  writeMessage =(data)=>{
-    console.log(data);
+  handleMessage =(data)=>{
+    // Handling the data we just got
+    // And write the message and if needed, get the map
     this.state.data = data;
-    if(data.status =='OK'){
+    if(this.state.data.status == 'OK'){
       this.state.status="OK";
-      this.getMap(data.adress, data.location);
+      this.getMap(data.address, data.location);
       this.state.img = data.img + 1;
       this.state.img_location = 'anecdote'
     }
     else {
       this.state.status = data.status;
-      this.getMessage("grandpybot", data.error_message);
+      this.writeMessage("grandpybot", this.state.data.error_message);
       this.setState(()=> {
-        return {img: data.error_img + 1, img_location: 'failure'}
+        return {img: this.state.data.error_img + 1, img_location: 'failure'}
       });
     }
   };
 
   getAnswer =(message)=> {
+    // AJAX call to the server
     this.setState(()=>{
       return {status: "Loading", img: 1, img_location: 'loading'}
     });
@@ -86,30 +79,31 @@ class Main extends React.Component{
       method: 'POST',
       body: JSON.stringify(message)
     }).then(response => response.json())
-        .then(this.writeMessage)
+        .then(this.handleMessage)
         .catch();
   };
 
-  getMap =(adress, location)=> {
-        this.state.success = false;
-        const API_KEY = "AIzaSyBsl71VK0vPiuXN-OO1skM9lvYXCGI6pRI";
-        let mapsURL = "https://maps.googleapis.com/maps/api/staticmap?zoom=16&size=300x300&center=" + adress;
-        let marker = "&markers=color:blue7Clabel:S%7C" + location.lat + ',' + location.lng;
-        fetch(mapsURL + marker + "&key=" + API_KEY)
-            .then(response => response)
-            .then(this.writeMap)
-            .catch();
+  getMap =(address, location)=> {
+    // Call to the Google Map api
+    this.state.success = false;
+    const API_KEY = "AIzaSyBsl71VK0vPiuXN-OO1skM9lvYXCGI6pRI";
+    let mapsURL = "https://maps.googleapis.com/maps/api/staticmap?zoom=16&size=300x300&center=" + address;
+    let marker = "&markers=color:blue7Clabel:S%7C" + location.lat + ',' + location.lng;
+    fetch(mapsURL + marker + "&key=" + API_KEY)
+        .then(response => response)
+        .then(this.writeMap)
+        .catch();
     };
 
   render() {
     return (
-      <div className="App-header d-flex">
+      <div className="App-content d-flex">
           <div className="card bg-secondary p-3 m-5">
             <AutoscrolledList
               items={this.state.message}
               status={this.state.status}
             />
-            <Form getMessage={this.getMessage}
+            <Form writeMessage={this.writeMessage}
                   getAnswer={this.getAnswer}/>
           </div>
           <div className="m-3">

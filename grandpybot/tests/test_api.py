@@ -68,6 +68,6 @@ class TestMediaWikiAPI:
         monkeypatch.setattr("requests.get", FakeMediaWiki)
         self.place.page = 5653202
         self.place.find_annecdote()
-        assert self.place.annecdote == "La cité Paradis est une voie publique située " \
+        assert self.place.anecdote == "La cité Paradis est une voie publique située " \
                                        "dans le 10e arrondissement de Paris."
         assert self.place.url == "https://fr.wikipedia.org/wiki/Cit%C3%A9_Paradis"
