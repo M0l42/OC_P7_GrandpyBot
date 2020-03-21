@@ -25,6 +25,7 @@ class GoogleAPI:
         params = {'query': self.place, 'key': self.api_key}
         r = requests.get(url, params=params)
         result = r.json()
+        print(result)
         self.status = result['status']
         if self.status == 'OK':
             self.address = result['results'][0]['formatted_address']
