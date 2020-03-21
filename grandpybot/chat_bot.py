@@ -49,10 +49,12 @@ def select_response(status):
 
 def compact_answer(text):
     """
-    Using a regular expression to get the first two sentences of a text
+    Using a regular expression to get the first sentences of a text
     :param text:
     :return:
         The first two sentences
     """
+    text.rstrip('\r\n')
     sentences = re.split(r'(?<=[^A-Z].[.?]) +(?=[A-Z])', text)
-    return ' '.join(sentences[:2])
+    print(sentences)
+    return ' '.join(sentences[:1])

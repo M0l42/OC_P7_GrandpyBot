@@ -42,6 +42,7 @@ def update():
         response['first_message'] = first_response + place.address
         second_response, response['img'] = select_response("anecdote")
         response['second_message'] = second_response + compact_answer(anecdote.anecdote)
+        print(compact_answer(anecdote.anecdote))
     else:
         # Send error message if Google Maps didn't got a result
         response['error_message'], response['error_img'] = select_response('failure')

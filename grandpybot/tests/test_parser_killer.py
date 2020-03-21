@@ -41,5 +41,5 @@ def test_compact_answer():
     sentence = "Mr. Smith bought cheapsite.com for 1.5 million dollars, i.e. he paid a lot for it. " \
                "Did he mind? Adam Jones Jr. thinks he didn't."
     assert compact_answer(sentence) == "Mr. Smith bought cheapsite.com for 1.5 million dollars, i.e. " \
-                                       "he paid a lot for it. Did he mind?"
+                                       "he paid a lot for it."
 
