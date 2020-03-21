@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import Img from 'react-image'
 import {isMobile} from 'react-device-detect'
 
-class Test extends Component {
+class Grandpy extends Component {
     render() {
         const img = this.props.img;
         const location = this.props.location;
         let image= "0" + img.toString();
         let path = 'static/img/grandpy/';
-        if (isMobile){
+        if (isMobile || window.innerWidth < 1200){
             path += 'mobile/'
         }
     return (
@@ -19,4 +19,4 @@ class Test extends Component {
   }
 }
 
-export default Test;
+export default Grandpy;

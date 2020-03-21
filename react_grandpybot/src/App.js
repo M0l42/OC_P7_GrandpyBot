@@ -3,7 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from "./components/Form";
 import AutoscrolledList from "./components/AutoscrolledList";
-import Test from "./components/Grandpy"
+import Grandpy from "./components/Grandpy"
 
 function chooseImage() {
     let min = 1;
@@ -23,6 +23,15 @@ class Main extends React.Component{
       img: chooseImage(),
       img_location: "other"
     };
+  }
+
+  handleResize() {
+
+  }
+
+  componentDidMount() {
+    this.handleResize();
+    window.addEventListener("resize", this.handleResize());
   }
 
   getMessage =(user, userMessage)=> {
@@ -51,6 +60,7 @@ class Main extends React.Component{
   };
 
   writeMessage =(data)=>{
+    console.log(data);
     this.state.data = data;
     if(data.status =='OK'){
       this.state.status="OK";
@@ -58,7 +68,7 @@ class Main extends React.Component{
       this.state.img = data.img + 1;
       this.state.img_location = 'anecdote'
     }
-    else if(data.status == 'ZERO_RESULTS'){
+    else {
       this.state.status = data.status;
       this.getMessage("grandpybot", data.error_message);
       this.setState(()=> {
@@ -97,14 +107,12 @@ class Main extends React.Component{
             <AutoscrolledList
               items={this.state.message}
               status={this.state.status}
-              onScrolled={e => console.log("the list was scrolled!")}
-              onScrolledTop={e => alert("scrolled to top!")}
             />
             <Form getMessage={this.getMessage}
                   getAnswer={this.getAnswer}/>
           </div>
           <div className="m-3">
-            <Test img={this.state.img}
+            <Grandpy img={this.state.img}
                   location={this.state.img_location}/>
           </div>
       </div>

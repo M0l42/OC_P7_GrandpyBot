@@ -15,7 +15,7 @@ function UserClass(props) {
 
 function Message(props) {
     if (props.img){
-        return (<img src={props.img}/>)
+        return (<img src={props.img} className="map"/>);
     }
     else{
         return props.message

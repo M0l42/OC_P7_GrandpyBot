@@ -34,6 +34,11 @@ body {
   text-align: right;
 }
 
+.map {
+  width: 300px;
+  height: 300px;
+}
+
 @media all and (max-width: 1200px)
 {
   .App-header {
@@ -44,6 +49,10 @@ body {
     width: 400px;
     height: 400px;
   }
+  .map {
+    width: 230px;
+    height: 230px;
+  }
 }
 
 @media all and (max-width: 500px)
@@ -51,5 +60,9 @@ body {
   .chatbox {
     width: 300px;
     height: 400px;
+  }
+  .map {
+    width: 150px;
+    height: 150px;
   }
 }
