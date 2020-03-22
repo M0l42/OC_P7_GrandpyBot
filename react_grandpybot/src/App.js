@@ -98,7 +98,7 @@ class Main extends React.Component{
   render() {
     return (
       <div className="App-content d-flex">
-          <div className="card bg-secondary p-3 m-5">
+          <div className="card bg-secondary p-3">
             <AutoscrolledList
               items={this.state.message}
               status={this.state.status}
@@ -106,7 +106,7 @@ class Main extends React.Component{
             <Form writeMessage={this.writeMessage}
                   getAnswer={this.getAnswer}/>
           </div>
-          <div className="m-3">
+          <div className="ml-5">
             <Grandpy img={this.state.img}
                   location={this.state.img_location}/>
           </div>

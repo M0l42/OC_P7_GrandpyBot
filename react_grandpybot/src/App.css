@@ -23,7 +23,7 @@ body {
 .chatbox {
   height: 600px;
   width: 500px;
-  overflow: auto;
+  overflow-y: scroll;
 }
 
 .grandpybot {
