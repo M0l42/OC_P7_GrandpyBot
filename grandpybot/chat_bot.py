@@ -52,9 +52,7 @@ def compact_answer(text):
     Using a regular expression to get the first sentences of a text
     :param text:
     :return:
-        The first two sentences
+        The first sentences
     """
-    text.rstrip('\r\n')
     sentences = re.split(r'(?<=[^A-Z].[.?]) +(?=[A-Z])', text)
-    print(sentences)
-    return ' '.join(sentences[:1])
+    return sentences[0].splitlines()[0]
